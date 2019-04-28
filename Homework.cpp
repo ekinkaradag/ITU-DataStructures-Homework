@@ -1,3 +1,12 @@
+//
+//  main.cpp
+//  HWEXercise
+//
+//  Created by Berkan Yapıcı on 15.04.2019.
+//  Copyright © 2019 Berkan Yapıcı. All rights reserved.
+//
+
+
 #include <iostream>
 #include <string>
 
@@ -32,17 +41,16 @@ public:
 		last = NULL;
 		length = 0;
 	}
-	unsigned long long length()const { return length; } //get length of the linkedlist
+	unsigned long long length1()const { return length; } //get length of the linkedlist
 
 	void insertBeginning(string na, unsigned long long nu) {
 
 		node *valuenode = new node;
 		valuenode->name = na;
 		valuenode->number = nu;
-		valuenode->link = NULL;
+		valuenode->link = first;
 		first = valuenode;
-
-		if (last == NULL) // If this is the only node that is now being insterted
+		if (last == NULL)
 		{
 			last = valuenode;
 		}
@@ -90,6 +98,8 @@ public:
 			insertBeginning(na, nu);
 		}
 
+		length++;
+
 	}
 
 	void addRecord(string na, unsigned long long nu) {
@@ -105,7 +115,7 @@ public:
 			cur = first;
 			while (cur->link != NULL)
 			{
-				if ((strcmpi(prev->name.c_str(), na.c_str()) < 0) && (strcmpi(cur->name.c_str(), na.c_str()) >= 0)) { //check alphabetically which comes first ( true if prev<na<=cur )
+				if ((strcmp(prev->name.c_str(), na.c_str()) < 0) && (strcmp(cur->name.c_str(), na.c_str()) >= 0)) { //check alphabetically which comes first ( true if prev<na<=cur )
 					prev->link = valuenode;
 					valuenode->link = cur;
 				}
@@ -116,7 +126,7 @@ public:
 		else {
 			insertBeginning(na, nu);
 		}
-		
+
 	}
 
 	bool isEmptyList()const {
@@ -156,7 +166,7 @@ public:
 		return 0; //if the searched name cannot be found in the phonebook
 		//Upper and lower case matters
 	}
-	
+
 	void printPhoneBook()const {
 		node *temp = first;
 
@@ -168,6 +178,7 @@ public:
 		{
 			while (temp != NULL)
 			{
+
 				cout << "Name: " << temp->name << "\t\t\tNumber: " << temp->number << "\n";
 				temp = temp->link;
 			}
@@ -179,5 +190,16 @@ public:
 
 
 int main() {
-	linkedlist l;
+
+
+	linkedlist phonebook;
+
+	phonebook.insertBeginning("a", 314341);
+	phonebook.insertBeginning("bc", 32214341);
+	phonebook.insertBeginning("de", 3121212);
+	phonebook.insertAtTheEnd("ffff", 3121111212);
+	phonebook.insertInMiddle("IooooI", 100000000001);
+	phonebook.addRecord("dc - alphabetical", 123123123);
+	phonebook.printPhoneBook();
+
 }
